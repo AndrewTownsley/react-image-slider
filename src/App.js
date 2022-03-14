@@ -1,10 +1,12 @@
 import './App.scss';
 import React, { useState, useEffect } from 'react';
 import ImageModal from './components/ImageModal';
+import ModalSlide from './components/ModalSlide';
 
 function App() {
   const [photoData, setPhotoData] = useState([]);
   const [modal, setModal] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(null);
 
   useEffect(() => {
     const fetchPhotoData = async () => {
@@ -20,15 +22,21 @@ function App() {
     fetchPhotoData();
   }, [])
 
+  const openModal = (image,index) => {
+    setCurrentSlide(image.src.medium)
+    setModal(true);
+    console.log(currentSlide);
+  }
+
   return (
-    <div className="App" onClick={(e) => console.log(e.target)}>
+    <div className="App">
       <section className='main-content'>
         <h1>Hi!</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus ipsam fuga dignissimos. Voluptatem, voluptates. Voluptas, ipsum? Laboriosam dolore quod minus.</p>
         <section className='photos'>
           {
-            photoData.map((image) => (
-              <article onClick={() => setModal(true)} className='photo-card' key={image.alt}>
+            photoData.map((image, index) => (
+              <article onClick={(index) => openModal(image, index)} className='photo-card' key={index}>
                 <img className='photo-img' alt={image.alt} src={image.src.medium}/>
                 <div>
                   <p>Lorem, ipsum.</p>
@@ -42,7 +50,8 @@ function App() {
         modal && 
       <ImageModal
         photoData={photoData}
-        setModal={setModal} 
+        setModal={setModal}
+        currentSlide={currentSlide} 
       />
       }
     </div>

@@ -1,13 +1,11 @@
 import React from 'react'
+import ModalSlide from './ModalSlide'
 
-const ImageModal = ({ photoData, setModal }) => {
+const ImageModal = ({ photoData, setModal, currentSlide }) => {
+
   return (
     <div className='image-modal' onClick={() => setModal(false)}>
-        {
-            photoData.map((photo) => (
-                <img src={photo.src.large} alt={photo.alt} />
-            ))
-        }
+        {/* <img src={image[currentSlide]} alt="" /> */}
     </div>
   )
 }
