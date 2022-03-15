@@ -5,7 +5,7 @@ const ImageModal = ({ photoData, setModal, currentSlide }) => {
 
   return (
     <div className='image-modal' onClick={() => setModal(false)}>
-        {/* <img src={image[currentSlide]} alt="" /> */}
+        <img src={currentSlide} alt="" />
     </div>
   )
 }
