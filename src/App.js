@@ -53,7 +53,7 @@ function App() {
         </section>
       </section>
       {
-        modal && 
+        (modal && !isLoading) ?
       <ImageModal
         photoData={photoData}
         setModal={setModal}
@@ -63,6 +63,7 @@ function App() {
         isLoading={isLoading}
         setIsLoading={setIsLoading}
       />
+      : <Loading/>
       }
     </div>
   );

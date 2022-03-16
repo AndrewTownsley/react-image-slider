@@ -1,61 +1,69 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md'
 import Loading from './Loading'
 
 
 const ImageModal = ({ photoData, setModal, currentSlide, setCurrentSlide, currentIndex, setCurrentIndex, isLoading, setIsLoading }) => {
-
-    
-  // Tge problem is that the newItem is not loaded yet, so the image is not loaded.
-  // The solution is to use the setTimeout function to wait for the newItem to be loaded.
-  // or use the useEffect function to wait for the newItem to be loaded.
   
-  const prevModalSlide = () => {
-    //   setIsLoading(true)
-      const totalLength = photoData.length;
-      if (currentIndex === 0) {
-      setCurrentIndex(totalLength + 1);
-      const newUrl = photoData[totalLength + 1];
-      setCurrentSlide(newUrl);
-        setIsLoading(false);
-      return;
-    } else {
-        const newIndex = currentIndex + 1;
-        const newUrl = photoData.filter((item) => {
-            return photoData.indexOf(item) === newIndex;
-        });
-        const newItem = newUrl[0];
-        console.log("newItem: ",newItem);
-        setCurrentIndex(newIndex);
-        // setCurrentSlide(newItem)
-        // setIsLoading(false);
-        console.log("currentSlide: ", currentSlide);
-    }
-    }
+
+const prevModalSlide = () => {
+    setIsLoading(true)
+console.log("currentSlide:", currentSlide);
+console.log("currentIndex:", currentIndex);
+if (currentIndex === 0) {
+    setCurrentIndex(photoData.length - 1)
+    setIsLoading(false)
+    console.log("newSlide:", photoData[currentIndex]);
+    // setCurrentSlide(photoData[currentIndex])
+} else {
+    setCurrentIndex(currentIndex - 1)
+    setIsLoading(false)
+    console.log("newSlide:", photoData[currentIndex]);
+    // setCurrentSlide(photoData[currentIndex])
+}
+}
+
+//   const prevModalSlide = async () => {
+//       const totalLength = photoData.length;
+//       if (currentIndex === 0) {
+//       setCurrentIndex(totalLength + 1);
+//       const newUrl = await photoData[totalLength + 1];
+//       await setCurrentSlide(newUrl);
+//       return;
+//     } else {
+//         const newIndex = currentIndex + 1;
+//         const newUrl = await photoData.filter((item) => {
+//             return photoData.indexOf(item) === newIndex;
+//         });
+//         console.log("newIndex: ",newIndex);
+//         console.log("newUrl", newUrl);
+//         const newItem = await newUrl[0];
+//         console.log("newItem: ",newItem);
+//         setCurrentIndex(newIndex);
+//         await setCurrentSlide(newItem)
+//     }
+//     }
     
-    const nextModalSlide = () => {
+    const nextModalSlide = async () => {
         const totalLength = photoData.length;
         if (currentIndex === 0) {
           setCurrentIndex(totalLength - 1);
-          const newUrl = photoData[totalLength - 1];
-          setCurrentSlide(newUrl);
+          const newUrl = await photoData[totalLength - 1];
+          await setCurrentSlide(newUrl);
           console.log("newUrl: ",newUrl);
           return;
         } else {
             const newIndex = currentIndex - 1;
-            const newUrl = photoData.filter((item) => {
+            const newUrl = await photoData.filter((item) => {
                 return photoData.indexOf(item) === newIndex;
             });
-            const newItem = newUrl[0];
+            const newItem = await newUrl[0];
             console.log("newItem: ",newItem);
-            setCurrentIndex(newIndex);
-            // setCurrentSlide(newItem)
+                setCurrentIndex(newIndex);
+                setCurrentSlide(newItem)
             console.log("currentSlide: ",currentSlide);
         }
     }
-    
-    console.log("currentSlide:", currentSlide);
-    console.log("currentIndex:", currentIndex);
 
   return (
     <div className='image-modal'>
