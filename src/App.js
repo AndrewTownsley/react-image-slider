@@ -21,7 +21,6 @@ function App() {
       })
       const response = await data.json();
       setPhotoData(response.photos);
-      console.log("photoData: ", photoData);
       setIsLoading(false);
     }
     fetchPhotoData();
@@ -29,6 +28,7 @@ function App() {
 
   const openModal = (image,index) => {
     setCurrentSlide(image)
+    console.log("image:",image);
     setCurrentIndex(index)
     setModal(true);
   }
@@ -58,6 +58,7 @@ function App() {
         photoData={photoData}
         setModal={setModal}
         currentSlide={currentSlide} 
+        setCurrentSlide={setCurrentSlide}
         currentIndex={currentIndex}
         setCurrentIndex={setCurrentIndex}
         isLoading={isLoading}

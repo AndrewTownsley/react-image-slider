@@ -14,12 +14,14 @@ if (currentIndex === 0) {
     setCurrentIndex(photoData.length - 1)
     setIsLoading(false)
     console.log("newSlide:", photoData[currentIndex]);
-    // setCurrentSlide(photoData[currentIndex])
+    let newSlide = photoData[currentIndex]
+    setCurrentSlide(newSlide)
 } else {
     setCurrentIndex(currentIndex - 1)
     setIsLoading(false)
+    let newSlide = photoData[currentIndex]
     console.log("newSlide:", photoData[currentIndex]);
-    // setCurrentSlide(photoData[currentIndex])
+    setCurrentSlide(newSlide)
 }
 }
 
@@ -59,9 +61,9 @@ if (currentIndex === 0) {
             });
             const newItem = await newUrl[0];
             console.log("newItem: ",newItem);
-                setCurrentIndex(newIndex);
-                setCurrentSlide(newItem)
-            console.log("currentSlide: ",currentSlide);
+                await setCurrentIndex(newIndex);
+                console.log("currentSlide: ",currentSlide);
+                await setCurrentSlide(newItem)
         }
     }
 
@@ -71,7 +73,7 @@ if (currentIndex === 0) {
         <button onClick={prevModalSlide}><MdArrowBackIos/></button>
         {
             isLoading ? <Loading /> : 
-            <img src={currentSlide.src.medium} alt="" />
+            <img src={currentSlide.src.medium} alt='alt-text' />
         }
         <button onClick={nextModalSlide}><MdArrowForwardIos/></button>
     </div>
