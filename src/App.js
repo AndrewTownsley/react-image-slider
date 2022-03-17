@@ -24,13 +24,14 @@ function App() {
       setIsLoading(false);
     }
     fetchPhotoData();
-  }, [setModal])
+  }, [setModal, currentIndex, setCurrentIndex])
 
   const openModal = (image,index) => {
     setCurrentSlide(image)
-    console.log("image:",image);
+    // set the current index to the index of the image clicked
     setCurrentIndex(index)
     setModal(true);
+    console.log("currentIndex:", currentIndex);
   }
 
   return (
@@ -42,7 +43,7 @@ function App() {
           {
             isLoading ? <Loading /> :
             photoData.map((image, index) => (
-              <article onClick={() => openModal(image, index)} className='photo-card' key={index}>
+              <article onClick={() => openModal(image, index)} className='photo-card' key={image.id}>
                 <img className='photo-img' alt={image.alt} src={image.src.medium}/>
                 <div>
                   <p>Lorem, ipsum.</p>
@@ -53,7 +54,7 @@ function App() {
         </section>
       </section>
       {
-        (modal && !isLoading) ?
+        modal && 
       <ImageModal
         photoData={photoData}
         setModal={setModal}
@@ -64,7 +65,6 @@ function App() {
         isLoading={isLoading}
         setIsLoading={setIsLoading}
       />
-      : <Loading/>
       }
     </div>
   );
