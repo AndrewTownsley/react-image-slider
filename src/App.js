@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import ImageModal from './components/ImageModal';
 import ModalSlide from './components/ModalSlide';
 import Loading from './components/Loading';
+import ContactIcons from './components/ContactIcons';
 
 function App() {
   const [photoData, setPhotoData] = useState([]);
@@ -52,6 +53,7 @@ function App() {
             ))
           }
         </section>
+        <ContactIcons />
       </section>
       {
         modal && 
