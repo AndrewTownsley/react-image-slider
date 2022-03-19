@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md'
 import ImageLoader from './ImageLoader'
+import useFade from '../../utils/useFade'
 
 
 const ImageModal = ({ photoData, modal,  setModal, currentSlide, setCurrentSlide, currentIndex, setCurrentIndex, isLoading }) => {
@@ -17,7 +18,7 @@ const nextModalSlide = () => {
             setCurrentIndex(0)
             setCurrentSlide(photoData[0])
         }
-        setFade(false)
+        // setFade(false)
 }
 
 const prevModalSlide = () => {
