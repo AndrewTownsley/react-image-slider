@@ -2,7 +2,11 @@ import React from 'react'
 
 const ImageLoader = () => {
   return (
-    <div>ImageLoader</div>
+    <section className='image-loader-container'>
+      <div className='spinner-container'>
+       <div className="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      </div>
+    </section>
   )
 }
 
