@@ -32,7 +32,6 @@ function App() {
     // set the current index to the index of the image clicked
     setCurrentIndex(index)
     setModal(true);
-    console.log("currentIndex:", currentIndex);
   }
 
   return (
