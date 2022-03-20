@@ -4,6 +4,7 @@ import ImageModal from './components/ImageModal';
 import ModalSlide from './components/ModalSlide';
 import Loading from './components/Loading';
 import ContactIcons from './components/ContactIcons';
+import { BiLink } from 'react-icons/bi';
 
 function App() {
   const [photoData, setPhotoData] = useState([]);
@@ -15,12 +16,13 @@ function App() {
   useEffect(() => {
     const fetchPhotoData = async () => {
       setIsLoading(true);
-      const data = await fetch(`https://api.pexels.com/v1/curated?per_page=10`, {
+      const data = await fetch(`https://api.pexels.com/v1/curated?per_page=16`, {
         headers: {
           Authorization: "563492ad6f91700001000001f58e6def40a2436c823881c0b23a45b7"
         }
       })
       const response = await data.json();
+      console.log(response.photos);
       setPhotoData(response.photos);
       setIsLoading(false);
     }
@@ -41,16 +43,22 @@ function App() {
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus ipsam fuga dignissimos. Voluptatem, voluptates. Voluptas, ipsum? Laboriosam dolore quod minus.</p>
         <section className='photos'>
           {
-            isLoading ? <Loading /> :
+            (isLoading && !modal) ? <Loading /> :
             photoData.map((image, index) => (
               <article onClick={() => openModal(image, index)} className='photo-card' key={image.id}>
+                <div className='photo-card-overlay'>
+                  <div>
+                    <span>{image.photographer}</span> 
+                    <a href={image.url}><BiLink/></a>
+                  </div>
+                </div>
                 <img className='photo-img' alt={image.alt} src={image.src.medium}/>
                 <div>
-                  <p>Lorem, ipsum.</p>
                 </div>
               </article>
             ))
           }
+          {/* <Loading /> */}
         </section>
         <ContactIcons />
       </section>

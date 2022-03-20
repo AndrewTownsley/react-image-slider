@@ -1,15 +1,15 @@
 import React from 'react'
 
-const Loading = () => {
+const ModalLoader = ({ modal }) => {
   return (
-    <>
-    <section className='loading-images-container'>
-    <div className='main-spinner-container'>
+    <section className='image-loader-container'>
+      <div>
+        <div className='spinner-container'>
          <div className="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         </div>
+      </div>
     </section>
-    </>
   )
 }
 
-export default Loading
+export default ModalLoader

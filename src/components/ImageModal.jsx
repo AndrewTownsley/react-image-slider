@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md'
-import ImageLoader from './ImageLoader';
+import ModalLoader from './ModalLoader';
 
 
 const ImageModal = ({ photoData, modal,  setModal, currentSlide, setCurrentSlide, currentIndex,setCurrentIndex, isLoading }) => {
@@ -28,19 +28,24 @@ const prevModalSlide = () => {
 
   return (
     <div className='image-modal'>
-        <button onClick={() => setModal(false)}>Close</button>
-        <button onClick={prevModalSlide}><MdArrowBackIos/></button>
-        <div>
+        <button className='image-modal-btn close-btn' onClick={() => setModal(false)}>&#10006;</button>
+        <button className='image-modal-btn' onClick={prevModalSlide}><MdArrowBackIos/></button>
+        <div className='image-modal-photo-container'>
 
         {
-            isLoading ? <ImageLoader /> : 
+            isLoading 
+            ? 
+            <ModalLoader
+                modal={modal}
+            /> 
+            : 
             <img 
-            src={currentSlide.src.medium} 
+            src={currentSlide.src.large} 
             alt='alt-text' 
             />
         }
         </div>
-        <button onClick={nextModalSlide}><MdArrowForwardIos/></button>
+        <button className='image-modal-btn' onClick={nextModalSlide}><MdArrowForwardIos/></button>
     </div>
   )
 }

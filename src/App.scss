@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&family=Open+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@800&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -5,24 +8,39 @@
 }
 
 .App {
-  background-color: rgb(233, 233, 233);
+  // background-color: rgb(21, 13, 27);
+  background-color: #fff;
   text-align: center;
+  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .main-content {
-  max-width: 60%;
+  max-width: 90%;
   margin: 0 auto;
-  padding: 6rem 0;
+  padding: 4rem 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  p {
+    max-width: 600px;
+  }
 }
 
+h1 {
+  font-size: 6rem;
+  font-weight: 800;
+  color: rgb(21, 13, 27);
+}
+
+p {
+  color: #555;
+  padding: 2rem 0;
+}
 //////// Main Photo Gallery
 
 .photos {
-  max-width: 700px;
+  // max-width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,12 +48,64 @@
 }
 
 .photo-card {
+  position: relative;
   margin: 1rem;
+  border-radius: 5px;
   cursor: pointer;
-  transition: transform ease 0.3s;
-  &:hover {
-    transform: rotate(5deg);
+  transition: ease 0.3s;
+  background-color: #fff;
+  p {
+    color: rgb(21, 13, 27);
+    padding: 0.5rem;
   }
+  &:hover {
+    filter: opacity(0.9);
+  }
+}
+
+// Photo-card hover overlay
+
+.photo-card-overlay {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  background-color: rgba(255, 255, 255, 0);
+  color: #fff;
+  transition: 0.3s ease;
+  padding: 10px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  z-index: 2;
+  div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    span {
+      color: rgb(219, 219, 219);
+      font-size: 0.8rem;
+    }
+    a {
+      color: rgb(219, 219, 219);
+      padding: 2px;
+      &:hover {
+        border-radius: 2px;
+        color: rgb(255, 255, 255);
+        background-color: rgba(149, 149, 149, 0.5);
+      }
+    }
+  }
+}
+
+.photo-card:hover .photo-card-overlay {
+  opacity: 1;
+}
+
+.photo-card .photo-card-overlay:hover {
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .photo-img {
@@ -56,24 +126,45 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
   transition: ease 0.6s;
   animation: modalFadeIn 500ms;
   div {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 24rem;
-    width: 20rem;
+    height: 85vh;
+    width: 80vw;
   }
   img {
     object-fit: cover;
     object-position: center;
-    height: 24rem;
-    width: 20rem;
+    max-height: 85vh;
+    max-width: 80vw;
     transition: opacity 0.6s;
     animation: imageFadeIn 1250ms;
+    box-shadow: 0 1em 3em 0 rgb(0 0 0 / 45%);
   }
+}
+
+.image-modal-btn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: rgb(207, 207, 207);
+  transition: 0.2s;
+  font-size: 4rem;
+  cursor: pointer;
+  &:hover {
+    color: rgb(255, 255, 255);
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1rem 3rem 0 0;
 }
 
 @keyframes modalFadeIn {
@@ -122,14 +213,40 @@
 
 /// Loading Spinner
 
-.image-loader-container {
+.main-spinner-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  display: inline-block;
-  width: 80px;
-  height: 80px;
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.loading-images-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.main-spinner-container {
+  padding-top: 30vh;
+}
+
+.image-loader-container {
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+  }
 }
 
 .spinner-container {
@@ -142,7 +259,7 @@
   position: absolute;
   width: 6px;
   height: 6px;
-  background: #fff;
+  background: rgb(71, 123, 255);
   border-radius: 50%;
   animation: lds-default 1.2s linear infinite;
 }
