@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ModalLoader = ({ modal }) => {
+const ModalLoader = () => {
   return (
     <section className='image-loader-container'>
       <div>

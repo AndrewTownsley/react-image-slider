@@ -1,10 +1,9 @@
 import './App.scss';
 import React, { useState, useEffect } from 'react';
 import ImageModal from './components/ImageModal';
-import ModalSlide from './components/ModalSlide';
 import Loading from './components/Loading';
-import ContactIcons from './components/ContactIcons';
 import { BiLink } from 'react-icons/bi';
+import { MdOutlineCamera } from 'react-icons/md';
 
 function App() {
   const [photoData, setPhotoData] = useState([]);
@@ -12,26 +11,32 @@ function App() {
   const [modal, setModal] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [search, setSearch] = useState('');
+
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearch(searchQuery);
+  }
 
   useEffect(() => {
     const fetchPhotoData = async () => {
       setIsLoading(true);
-      const data = await fetch(`https://api.pexels.com/v1/curated?per_page=16`, {
+      const data = await fetch(`https://api.pexels.com/v1/search?query=${search ? searchQuery : 'europe'}?per_page=16`, {
         headers: {
           Authorization: "563492ad6f91700001000001f58e6def40a2436c823881c0b23a45b7"
         }
       })
       const response = await data.json();
-      console.log(response.photos);
       setPhotoData(response.photos);
       setIsLoading(false);
     }
     fetchPhotoData();
-  }, [setModal, currentIndex, setCurrentIndex])
+  }, [setModal, currentIndex, setCurrentIndex, setSearch, search])
 
   const openModal = (image,index) => {
     setCurrentSlide(image)
-    // set the current index to the index of the image clicked
     setCurrentIndex(index)
     setModal(true);
   }
@@ -39,8 +44,21 @@ function App() {
   return (
     <div className="App">
       <section className='main-content'>
-        <h1>Hi!</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus ipsam fuga dignissimos. Voluptatem, voluptates. Voluptas, ipsum? Laboriosam dolore quod minus.</p>
+        <header>
+          <div className='header-left-search'>
+            <h1><MdOutlineCamera/></h1>
+            <form className='search-form' onSubmit={handleSearch}>
+              <input 
+                placeholder='search photos...'
+                type="text" 
+                onChange={(e) => setSearchQuery(e.target.value)}
+                />
+            </form> 
+          </div>
+          <div>
+            <h1>SHUTTERSEARCH</h1>
+          </div>
+        </header>
         <section className='photos'>
           {
             (isLoading && !modal) ? <Loading /> :
@@ -58,9 +76,7 @@ function App() {
               </article>
             ))
           }
-          {/* <Loading /> */}
         </section>
-        <ContactIcons />
       </section>
       {
         modal && 
