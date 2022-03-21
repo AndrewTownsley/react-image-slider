@@ -44,6 +44,14 @@ p {
   padding: 2rem 0;
 }
 
+button {
+  outline: none;
+  border: none;
+  &:focus {
+    outline: 2px solid #999;
+  }
+}
+
 header {
   width: 100%;
   padding: 1rem;
@@ -165,6 +173,23 @@ header {
   width: 12rem;
 }
 
+.load-more-btn {
+  padding: 1rem 1.5rem;
+  margin: 2rem;
+  border-radius: 5px;
+  color: rgb(255, 255, 255);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  background: rgba(131, 58, 180, 1);
+  transition: ease 0.2s;
+  box-shadow: 1px 21px 33px -2px rgba(0, 0, 0, 0.53);
+  &:hover {
+    background: rgb(115, 50, 158);
+    box-shadow: 1px 35px 33px -2px rgba(0, 0, 0, 0.53);
+  }
+}
+
 ///////////Modal and modal-photos
 
 .image-modal {
@@ -211,8 +236,6 @@ header {
 .image-modal-btn {
   text-align: center;
   background-color: transparent;
-  border: none;
-  outline: none;
   color: rgb(207, 207, 207);
   transition: 0.2s;
   font-size: 4rem;

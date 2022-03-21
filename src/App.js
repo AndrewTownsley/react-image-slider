@@ -4,6 +4,7 @@ import ImageModal from './components/ImageModal';
 import Loading from './components/Loading';
 import { BiLink } from 'react-icons/bi';
 import { MdOutlineCamera } from 'react-icons/md';
+import { nanoid } from 'nanoid';
 
 function App() {
   const [photoData, setPhotoData] = useState([]);
@@ -13,6 +14,8 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [search, setSearch] = useState('');
+  const [pageNum, setPageNum] = useState(1);
+  const [perPage, setPerPage] = useState(15);
 
 
   const handleSearch = (e) => {
@@ -20,21 +23,26 @@ function App() {
     setSearch(searchQuery);
   }
 
+  const loadMorePhotos = () => {
+    setPageNum(pageNum + 1)
+    setPerPage(perPage + 12)
+  }
+
   useEffect(() => {
     const fetchPhotoData = async () => {
       setIsLoading(true);
-      const data = await fetch(`https://api.pexels.com/v1/search?query=${search ? searchQuery : 'europe'}?per_page=16`, {
+      const data = await fetch(`https://api.pexels.com/v1/search?query=${search ? searchQuery : 'europe'}&page=${pageNum}per_page=${perPage}`, {
         headers: {
           Authorization: "563492ad6f91700001000001f58e6def40a2436c823881c0b23a45b7"
         }
       })
       const response = await data.json();
-      setPhotoData(response.photos);
+      setPhotoData([...photoData, ...response.photos ]);
       setIsLoading(false);
     }
     fetchPhotoData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setModal, currentIndex, setCurrentIndex, setSearch, search])
+  }, [setModal, currentIndex, setCurrentIndex, setSearch, search, setPageNum, pageNum])
 
   const openModal = (image,index) => {
     setCurrentSlide(image)
@@ -48,7 +56,11 @@ function App() {
         <header>
           <div className='header-left-search'>
             <h1><MdOutlineCamera/></h1>
-            <form className='search-form' onSubmit={handleSearch}>
+            <form 
+              className='search-form' 
+              onSubmit={handleSearch}
+              spellCheck='false'
+            >
               <input 
                 placeholder='search photos...'
                 type="text" 
@@ -64,7 +76,7 @@ function App() {
           {
             (isLoading && !modal) ? <Loading /> :
             photoData.map((image, index) => (
-              <article onClick={() => openModal(image, index)} className='photo-card' key={image.id}>
+              <article onClick={() => openModal(image, index)} className='photo-card' key={nanoid()}>
                 <div className='photo-card-overlay'>
                   <div>
                     <span>{image.photographer}</span> 
@@ -78,6 +90,7 @@ function App() {
             ))
           }
         </section>
+          <button className='load-more-btn' onClick={loadMorePhotos}>Load More</button>
       </section>
       {
         modal && 
