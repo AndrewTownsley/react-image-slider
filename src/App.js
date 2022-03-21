@@ -33,6 +33,7 @@ function App() {
       setIsLoading(false);
     }
     fetchPhotoData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setModal, currentIndex, setCurrentIndex, setSearch, search])
 
   const openModal = (image,index) => {
