@@ -16,6 +16,7 @@ function App() {
   const [search, setSearch] = useState('');
   const [pageNum, setPageNum] = useState(1);
   const [perPage, setPerPage] = useState(15);
+  const [loadMore, setLoadMore] = useState(false);
 
 
   const handleSearch = (e) => {
@@ -24,6 +25,7 @@ function App() {
   }
 
   const loadMorePhotos = () => {
+    setLoadMore(true);
     setPageNum(pageNum + 1)
     setPerPage(perPage + 12)
   }
@@ -33,16 +35,26 @@ function App() {
       setIsLoading(true);
       const data = await fetch(`https://api.pexels.com/v1/search?query=${search ? searchQuery : 'europe'}&page=${pageNum}per_page=${perPage}`, {
         headers: {
-          Authorization: "563492ad6f91700001000001f58e6def40a2436c823881c0b23a45b7"
+          Authorization: process.env.REACT_APP_API_KEY
         }
       })
       const response = await data.json();
-      setPhotoData([...photoData, ...response.photos ]);
+        if (photoData && search && pageNum === 1) {
+          setPhotoData([ ...response.photos])
+        } else if (pageNum > 1) {
+          setPhotoData([...photoData, ...response.photos])
+        } else if(searchQuery.value !== search.value) {
+          console.log('hello hello');
+          setPhotoData(response.photos);
+        } else {
+          setPhotoData(response.photos);
+        }
+        console.log(photoData);
       setIsLoading(false);
     }
     fetchPhotoData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setModal, currentIndex, setCurrentIndex, setSearch, search, setPageNum, pageNum])
+  }, [setPhotoData, setModal, currentIndex, setCurrentIndex, setSearch, search, setSearchQuery, setPageNum, pageNum])
 
   const openModal = (image,index) => {
     setCurrentSlide(image)
