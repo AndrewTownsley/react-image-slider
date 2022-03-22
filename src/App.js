@@ -84,7 +84,7 @@ function App() {
             <h1>SHUTTERSEARCH</h1>
           </div>
         </header>
-          <h3>{photoData.length ? search : 'No Photos found for that search term.'}</h3>
+          <h3 className='search-term'>{(photoData.length || isLoading) ? search : 'No Photos found for that search term.'}</h3>
         <section className='photos'>
           {
             (isLoading && !modal) ? <Loading /> :
