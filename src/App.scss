@@ -11,6 +11,12 @@
   background-color: #fff;
   text-align: center;
   font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  p {
+    font-size: 0.8rem;
+    a {
+      color: #333;
+    }
+  }
 }
 
 .main-content {
@@ -222,7 +228,7 @@ header {
     max-width: 70vw;
     transition: opacity 0.6s;
     animation: imageFadeIn 1250ms;
-    box-shadow: 0 1em 3em 0 rgb(0 0 0 / 45%);
+    box-shadow: 0 1em 3em 0 rgba(0, 0, 0, 0.45);
   }
   @media (max-width: 650px) {
     background-color: #000;

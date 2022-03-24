@@ -1,10 +1,8 @@
 import './App.scss';
 import React, { useState, useEffect } from 'react';
 import ImageModal from './components/ImageModal';
-import Loading from './components/Loading';
-import { BiLink } from 'react-icons/bi';
-import { MdOutlineCamera } from 'react-icons/md';
-import { nanoid } from 'nanoid';
+import Header from './components/Header';
+import PhotoList from './components/PhotoList';
 
 function App() {
   const [photoData, setPhotoData] = useState([]);
@@ -15,7 +13,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [search, setSearch] = useState('');
   const [pageNum, setPageNum] = useState(1);
-  const [perPage, setPerPage] = useState(15);
+  const [perPage, setPerPage] = useState(16);
   const [loadMore, setLoadMore] = useState(false);
 
 
@@ -44,12 +42,10 @@ function App() {
         } else if (pageNum > 1) {
           setPhotoData([...photoData, ...response.photos])
         } else if(searchQuery.value !== search.value) {
-          console.log('hello hello');
           setPhotoData(response.photos);
         } else {
           setPhotoData(response.photos);
         }
-        console.log(photoData);
       setIsLoading(false);
     }
     fetchPhotoData();
@@ -65,44 +61,17 @@ function App() {
   return (
     <div className="App">
       <section className='main-content'>
-        <header>
-          <div className='header-left-search'>
-            <h1><MdOutlineCamera/></h1>
-            <form 
-              className='search-form' 
-              onSubmit={handleSearch}
-              spellCheck='false'
-            >
-              <input 
-                placeholder='search photos...'
-                type="text" 
-                onChange={(e) => setSearchQuery(e.target.value)}
-                />
-            </form> 
-          </div>
-          <div>
-            <h1>SHUTTERSEARCH</h1>
-          </div>
-        </header>
+        <Header
+          handleSearch={handleSearch}
+          setSearchQuery={setSearchQuery}
+        />
           <h3 className='search-term'>{(photoData.length || isLoading) ? search : 'No Photos found for that search term.'}</h3>
-        <section className='photos'>
-          {
-            (isLoading && !modal) ? <Loading /> :
-            photoData.map((image, index) => (
-              <article onClick={() => openModal(image, index)} className='photo-card' key={nanoid()}>
-                <div className='photo-card-overlay'>
-                  <div>
-                    <span>{image.photographer}</span> 
-                    <a href={image.url}><BiLink/></a>
-                  </div>
-                </div>
-                <img className='photo-img' alt={image.alt} src={image.src.medium}/>
-                <div>
-                </div>
-              </article>
-            ))
-          }
-        </section>
+        <PhotoList
+          photoData={photoData}
+          openModal={openModal}
+          modal={modal}
+          isLoading={isLoading}
+        />
           <button className='load-more-btn' onClick={loadMorePhotos}>Load More</button>
       </section>
       {
@@ -118,6 +87,7 @@ function App() {
         setIsLoading={setIsLoading}
       />
       }
+            <p>Powered by <a href="https://www.pexels.com/">Pexels</a></p>
     </div>
   );
 }
