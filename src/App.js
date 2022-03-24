@@ -35,7 +35,7 @@ function App() {
       setIsLoading(true);
       const data = await fetch(`https://api.pexels.com/v1/search?query=${search ? searchQuery : 'europe'}&page=${pageNum}per_page=${perPage}`, {
         headers: {
-          Authorization: process.env.REACT_APP_API_KEY
+          Authorization: '563492ad6f91700001000001f58e6def40a2436c823881c0b23a45b7',
         }
       })
       const response = await data.json();
