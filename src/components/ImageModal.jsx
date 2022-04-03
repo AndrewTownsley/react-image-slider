@@ -33,17 +33,17 @@ const prevModalSlide = () => {
 }
 
   return (
-    <div className='image-modal'>
+    <div data-testid="imageModal" className='image-modal'>
         <button className='image-modal-btn close-btn' onClick={() => setModal(false)}>&#10006;</button>
         <button className='image-modal-btn left' onClick={prevModalSlide}><MdArrowBackIos/></button>
         <div className='image-modal-photo-container'>
         {
             isLoading 
-            ? 
+                ? 
             <ModalLoader
                 modal={modal}
             /> 
-            : 
+                : 
             <img 
                 src={currentSlide.src.large} 
                 alt='alt-text' 

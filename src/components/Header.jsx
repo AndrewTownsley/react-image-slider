@@ -10,6 +10,7 @@ const Header = ({ handleSearch, setSearchQuery}) => {
       <SearchForm
         handleSearch={handleSearch}
         setSearchQuery={setSearchQuery}
+        data-testid='searchForm'
       />
     </div>
     <div>

@@ -9,7 +9,7 @@ const PhotoCard = ({ openModal, image, index }) => {
     <div className='photo-card-overlay'>
       <div>
         <span>{image.photographer}</span> 
-        <a href={image.url}><BiLink/></a>
+        <a href={image.url} aria-label="link-to-source"><BiLink/></a>
       </div>
     </div>
     <img className='photo-img' alt={image.alt} src={image.src.medium}/>
